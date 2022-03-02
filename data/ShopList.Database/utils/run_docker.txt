@@ -1,0 +1,1 @@
+﻿docker run -p 5432:5432 -v W:\one-place\_databases\oneplace:/var/lib/postgresql/data -e POSTGRES_PASSWORD=1234 -d postgres
