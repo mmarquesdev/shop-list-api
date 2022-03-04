@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using prmToolkit.NotificationPattern;
 using ShopList.Domain.Queries.Base;
 using ShopList.Domain.Repositories;
-using System.Text.Json.Serialization;
 
 namespace ShopList.Domain.Queries.Boards
 {
@@ -20,11 +18,11 @@ namespace ShopList.Domain.Queries.Boards
             request.Validate();
 
             if (request.IsInvalid())
-                return await Task.FromResult(new ErrorQueryBaseResult(
+                return await Task.FromResult(new QueryBaseErrorResult(
                     "Invalid fields", request.Notifications));
 
             var boards = _boardRepository.ListBy(x => x.UserId == request.UserId && x.DeletedAt == null).ToList();
-            var result = boards?.Select(x => (GetBoardsQueryResult)x); 
+            var result = boards?.Select(x => (GetBoardsQueryResult)x)?.ToList();
 
             return await Task.FromResult(new QueryBaseManyResult<GetBoardsQueryResult>(result));
         }

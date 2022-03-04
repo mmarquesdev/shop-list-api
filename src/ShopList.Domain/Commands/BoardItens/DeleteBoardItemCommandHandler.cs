@@ -29,8 +29,8 @@ namespace ShopList.Domain.Commands.BoardItens
             if (boardItem == null || boardItem.Board == null || boardItem.Board.UserId != request.UserId || boardItem.Board.DeletedAt != null)
                 AddNotification(nameof(request.BoardItemId), "Não encontrado");
 
-            if (request.IsInvalid())
-                return await Task.FromResult(new ErrorCommandResult("Invalid fields", request.Notifications));
+            if (this.IsInvalid())
+                return await Task.FromResult(new ErrorCommandResult("Invalid fields", this.Notifications));
 
             boardItem?.Delete();
 

@@ -5,13 +5,13 @@ using ShopList.Infra.Repositories.Base;
 
 namespace ShopList.Infra.Repositories
 {
-    public class ExampleRepository : RepositoryBase<Example, Guid>, IBoardRepository
+    public class BoardItemRepository : RepositoryBase<BoardItem, Guid>, IBoardItemRepository
     {
-        public ExampleRepository(ExampleDbContext context) : base(context)
+        public BoardItemRepository(ShopListDbContext context) : base(context)
         {
             _context = context;
         }
 
-        private readonly ExampleDbContext _context;
+        private readonly ShopListDbContext _context;
     }
 }

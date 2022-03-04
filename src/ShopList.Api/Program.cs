@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "cors-oneplace", builder =>
+    options.AddPolicy(name: "cors-shoplist", builder =>
     {
         builder.WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
@@ -17,10 +17,11 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ExampleDbContext>(options =>
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ShopListDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseAdmin")));
 
-builder.Services.AddScoped<IBoardRepository, ExampleRepository>();
+builder.Services.AddScoped<IBoardItemRepository, BoardItemRepository>();
+builder.Services.AddScoped<IBoardRepository, BoardRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("cors-oneplace");
+app.UseCors("cors-shoplist");
 
 app.UseAuthorization();
 

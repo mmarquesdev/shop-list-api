@@ -9,9 +9,7 @@ namespace ShopList.Domain.Commands.BoardItens
         [JsonIgnore]
         public string? UserId { get; set; }
 
-        [JsonIgnore]
         public Guid BoardId { get; set; }
-
         public bool Finished { get; set; }
         public string? Name { get; set; }
         public int Amount { get; set; }

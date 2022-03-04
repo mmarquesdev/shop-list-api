@@ -3,16 +3,17 @@ using ShopList.Domain.Entities;
 
 namespace ShopList.Infra.Context
 {
-    public class ExampleDbContext : DbContext
+    public class ShopListDbContext : DbContext
     {
-        public ExampleDbContext(DbContextOptions<ExampleDbContext> options)
+        public ShopListDbContext(DbContextOptions<ShopListDbContext> options)
             : base(options) { }
 
-        public DbSet<Example>? Examples { get; set; }
+        public DbSet<Board>? Boards { get; set; }
+        public DbSet<BoardItem>? BoardItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ExampleDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShopListDbContext).Assembly);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
                 relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;

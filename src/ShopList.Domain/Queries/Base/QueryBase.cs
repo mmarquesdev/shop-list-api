@@ -37,9 +37,9 @@ namespace ShopList.Domain.Queries.Base
         public List<T>? Data { get; set; }
     }
 
-    public class ErrorQueryBaseResult : QueryBaseResult
+    public class QueryBaseErrorResult : QueryBaseResult
     {
-        public ErrorQueryBaseResult(string message, IEnumerable<Notification> notifications)
+        public QueryBaseErrorResult(string message, IEnumerable<Notification> notifications)
         {
             Message = message;
             Notifications = notifications;

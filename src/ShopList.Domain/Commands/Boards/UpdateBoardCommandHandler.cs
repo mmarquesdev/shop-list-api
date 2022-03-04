@@ -28,8 +28,8 @@ namespace ShopList.Domain.Commands.Boards
             if (board == null || board.UserId != request.UserId || board.DeletedAt != null)
                 AddNotification(nameof(request.BoardId), "Não encontrado");
             
-            if (request.IsInvalid())
-                return await Task.FromResult(new ErrorCommandResult("Invalid fields", request.Notifications));
+            if (this.IsInvalid())
+                return await Task.FromResult(new ErrorCommandResult("Invalid fields", this.Notifications));
 
             board?.Update(request.Name, request.Description);
 
