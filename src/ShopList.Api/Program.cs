@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ShopList.Domain.Repositories;
 using ShopList.Infra.Context;
 using ShopList.Infra.Repositories;
@@ -22,6 +24,22 @@ builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ShopListDbContext>(opti
 
 builder.Services.AddScoped<IBoardItemRepository, BoardItemRepository>();
 builder.Services.AddScoped<IBoardRepository, BoardRepository>();
+
+var projetcId = "shop-list-proj"; 
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = $"https://securetoken.google.com/{projetcId}";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = $"https://securetoken.google.com/{projetcId}",
+            ValidateAudience = true,
+            ValidAudience = $"{projetcId}",
+            ValidateLifetime = true
+        };
+    });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -46,6 +64,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("cors-shoplist");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -20,7 +20,7 @@ namespace ShopList.Api.Controllers.v1
         {
             try
             {
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 var response = mediator.Send(request).Result;
 
                 if (response.GetType() == typeof(SuccessCommandResult))
@@ -44,7 +44,7 @@ namespace ShopList.Api.Controllers.v1
         {
             try
             {
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 request.BoardItemId = BoardItemId;
                 var response = mediator.Send(request).Result;
 
@@ -69,7 +69,7 @@ namespace ShopList.Api.Controllers.v1
         {
             try
             {
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 request.BoardItemId = BoardItemId;
                 var response = mediator.Send(request).Result;
 
@@ -94,7 +94,7 @@ namespace ShopList.Api.Controllers.v1
             try
             {
                 GetBoardItemByIdQuery request = new GetBoardItemByIdQuery();
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 request.BoardItemId = BoardItemId;
                 var response = mediator.Send(request).Result;
 

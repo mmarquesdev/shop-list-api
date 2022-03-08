@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopList.Domain.Commands.Base;
 using ShopList.Domain.Commands.Boards;
@@ -7,6 +8,7 @@ using ShopList.Domain.Queries.Boards;
 
 namespace ShopList.Api.Controllers.v1
 {
+    [Authorize]
     [ApiController]
     [Route("v1/boards")]
     public class BoardController : ControllerBase
@@ -20,7 +22,7 @@ namespace ShopList.Api.Controllers.v1
         {
             try
             {
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 var response = mediator.Send(request).Result;
 
                 if (response.GetType() == typeof(SuccessCommandResult))
@@ -44,7 +46,7 @@ namespace ShopList.Api.Controllers.v1
         {
             try
             {
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 request.BoardId = boardId;
                 var response = mediator.Send(request).Result;
 
@@ -69,7 +71,7 @@ namespace ShopList.Api.Controllers.v1
         {
             try
             {
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 request.BoardId = boardId;
                 var response = mediator.Send(request).Result;
 
@@ -94,7 +96,7 @@ namespace ShopList.Api.Controllers.v1
             try
             {
                 GetBoardByIdQuery request = new GetBoardByIdQuery();
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 request.BoardId = boardId;
                 var response = mediator.Send(request).Result;
 
@@ -118,7 +120,7 @@ namespace ShopList.Api.Controllers.v1
             try
             {
                 GetBoardsQuery request = new GetBoardsQuery();
-                request.UserId = "teste";
+                request.UserId = User.Claims.Where(x => x.Type == "user_id").FirstOrDefault()?.Value; 
                 var response = mediator.Send(request).Result;
 
                 if (response.GetType() == typeof(QueryBaseManyResult<GetBoardsQueryResult>))
