@@ -8,7 +8,7 @@ namespace ShopList.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<BoardItem> builder)
         {
-            builder.ToTable("board_item");
+            builder.ToTable("board_items");
 
             builder.HasKey(x => x.Id);
 

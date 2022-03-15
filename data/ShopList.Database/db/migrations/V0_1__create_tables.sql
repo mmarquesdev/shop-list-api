@@ -8,7 +8,7 @@ create table boards (
 	, deleted_at timestamp with time zone
 ); 
 
-create table board_item (
+create table board_items (
 	  id uuid default uuid_generate_v4() primary key
 	, board_id uuid references boards(id) not null
 	, name varchar(100) not null
